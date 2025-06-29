@@ -15,14 +15,22 @@ import matplotlib.pyplot as plt
 st.set_page_config(layout="wide", page_title="ZM Proshop Insight Dashboard")
 
 # --- NLTK Data Downloads ---
-try:
-    stopwords.words('english')
-except LookupError:
-    nltk.download('stopwords')
-try:
-    nltk.data.find('tokenizers/punkt')
-except LookupError:
-    nltk.download('punkt')
+def download_nltk_data():
+    try:
+        nltk.data.find('corpora/stopwords')
+    except LookupError:
+        nltk.download('stopwords')
+    try:
+        nltk.data.find('tokenizers/punkt')
+    except LookupError:
+        nltk.download('punkt')
+    try:
+        nltk.data.find('tokenizers/punkt_tab/english')
+    except LookupError:
+        nltk.download('punkt_tab')
+
+# Download required NLTK data
+download_nltk_data()
 
 # --- Data Loading ---
 @st.cache_data
