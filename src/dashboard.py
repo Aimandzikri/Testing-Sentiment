@@ -30,9 +30,21 @@ def load_data():
     """
     Loads the mock review dataset.
     """
-    data_path = r'C:\Users\aiman\OneDrive\Desktop\PythonProject\ZM_Proshop_Dashboard\data\mock_reviews.csv'
-    df = pd.read_csv(data_path)
-    return df
+    import os
+    # Get the directory of the current script
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    # Go up one directory level and then into the data folder
+    data_path = os.path.join(os.path.dirname(current_dir), 'data', 'mock_reviews.csv')
+    
+    try:
+        df = pd.read_csv(data_path)
+        return df
+    except FileNotFoundError:
+        st.error(f"Error: Could not find the data file at {data_path}")
+        st.stop()
+    except Exception as e:
+        st.error(f"An error occurred while loading the data: {str(e)}")
+        st.stop()
 
 # --- Text Preprocessing ---
 def preprocess_text(text):
